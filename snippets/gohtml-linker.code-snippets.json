@@ -1,0 +1,14 @@
+{
+  "GoHugo Partial": {
+    "scope": "gohtml,gotmpl",
+    "prefix": "partial",
+    "body": ["{{ partial \"$1\" $2 }}"],
+    "description": "Insert a GoHugo partial call"
+  },
+  "GoHugo IncludeCached": {
+    "scope": "gohtml,gotmpl",
+    "prefix": "partialCached",
+    "body": ["{{ partialCached \"$1\" $2 }}"],
+    "description": "Insert a GoHugo partialCached call"
+  }
+}
