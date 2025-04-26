@@ -7,17 +7,21 @@
     "@types/mocha": "10.0.10",
     "@types/node": "22.14.1",
     "mocha": "11.1.0",
+    "ts-loader": "^9.5.2",
     "typescript": "5.8.3",
     "vscode": "1.1.37",
-    "vscode-test": "1.6.1"
+    "vscode-test": "1.6.1",
+    "webpack": "^5.99.6",
+    "webpack-cli": "^6.0.1"
   },
   "scripts": {
-    "compile:prepare": "rm -rf node_modules out && npm install",
-    "compile": "tsc -p tsconfig.json && tsc -p tsconfig.test.json",
     "test": "npm run compile && node test/runTest.js 2>&1 | grep -v 'UtilityProcess id:'",
-    "vscode:prepublish": "npm run compile"
+    "compile": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
+    "vscode:prepublish": "npm run package",
+    "package": "webpack --mode production --devtool hidden-source-map"
   },
-  "main": "./out/extension.js",
+  "main": "./dist/extension",
   "engines": {
     "vscode": "^1.50.0"
   },
