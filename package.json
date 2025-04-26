@@ -2,6 +2,14 @@
   "name": "dnb-hugo-helper",
   "description": "A couple of helpers for GoHugo theme development.",
   "version": "0.0.1",
+  "license": "MIT",
+  "keywords": [
+    "hugo",
+    "gohugo",
+    "theme",
+    "helper",
+    "snippets"
+  ],
   "devDependencies": {
     "@types/glob": "^8.1.0",
     "@types/mocha": "10.0.10",
@@ -15,13 +23,15 @@
     "webpack-cli": "^6.0.1"
   },
   "scripts": {
-    "test": "npm run compile && node test/runTest.js 2>&1 | grep -v 'UtilityProcess id:'",
     "compile": "webpack --mode development",
-    "watch": "webpack --mode development --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "test": "npm run compile && node test/runTest.js 2>&1 | grep -v 'UtilityProcess id:'",
     "vscode:prepublish": "npm run package",
-    "package": "webpack --mode production --devtool hidden-source-map"
+    "vscode:uninstall": "",
+    "watch": "webpack --mode development --watch"
   },
   "main": "./dist/extension.js",
+  "browser": "./dist/extension.js",
   "engines": {
     "vscode": "^1.50.0"
   },
@@ -30,11 +40,18 @@
     "onLanguage:gohtml",
     "onLanguage:gotmpl"
   ],
+  "categories": [
+    "Other",
+    "Snippets"
+  ],
   "contributes": {
+    "configurationDefaults": {},
     "configuration": {
       "title": "DNB GoHugo Helper",
+      "type": "object",
       "properties": {
-        "gohtmlLinker.patterns": {
+        "dnbHugoHelper.patterns": {
+          "order": 10,
           "type": "array",
           "default": [
             {
@@ -44,28 +61,77 @@
           ],
           "description": "Each entry maps a regex (with one capture group) to a folder under your workspace root."
         },
-        "gohtmlLinker.languages": {
+        "dnbHugoHelper.languages": {
+          "order": 20,
           "type": "array",
           "default": [
             "gohtml"
           ],
           "description": "Language identifiers for which to enable Ctrl+Click linking."
         },
-        "gohtmlLinker.debug": {
+        "dnbHugoHelper.debug": {
+          "order": 9999,
           "type": "boolean",
           "default": false,
           "description": "Enable verbose debug logging."
         },
-        "gohtmlLinker.snippetLanguages": {
+        "dnbHugoHelper.snippetLanguages": {
+          "order": 15,
           "type": "array",
           "default": [
             "gohtml"
           ],
-          "description": "Language identifiers to enable GoHugo snippet completions."
+          "description": "Language identifiers to enable GoHugo snippet completions.",
+          "markdownDescription": "Language identifiers to enable GoHugo snippet completions."
         }
       }
-    }
+    },
+    "snippets": [
+      {
+        "language": "*",
+        "path": "./snippets/gohtml-linker.code-snippets.json"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "sample",
+        "title": "Sample",
+        "description": "A sample walkthrough",
+        "steps": [
+          {
+            "id": "runcommand",
+            "title": "Run Command",
+            "description": "This step will run a command and check off once it has been run.\n[Run Command](command:getting-started-sample.runCommand)",
+            "media": {
+              "image": "media/image.png",
+              "altText": "Empty image"
+            },
+            "completionEvents": [
+              "onCommand:getting-started-sample.runCommand"
+            ]
+          },
+          {
+            "id": "changesetting",
+            "title": "Change Setting",
+            "description": "This step will change a setting and check off when the setting has changed\n[Change Setting](command:getting-started-sample.changeSetting)",
+            "media": {
+              "markdown": "media/markdown.md"
+            },
+            "completionEvents": [
+              "onSettingChanged:getting-started-sample.sampleSetting"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "displayName": "DNB GoHugo Helper",
+  "extensionPack": [],
+  "galleryBanner": {
+    "color": "#000000",
+    "theme": "dark"
+  },
+  "markdown": "github",
+  "preview": true,
   "publisher": "davidsneighbour"
 }

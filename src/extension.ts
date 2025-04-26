@@ -7,7 +7,7 @@ import { registerSnippetsProvider } from './features/snippetsProvider';
 let debug = false;
 let outputChannel: vscode.OutputChannel;
 
-/** Logs messages to the output channel when gohtmlLinker.debug = true */
+/** Logs messages to the output channel when dnbHugoHelper.debug = true */
 const debugLog = (...args: any[]) => {
   if (debug) {
     const message = args.map(String).join(' ');
@@ -20,7 +20,7 @@ const debugLog = (...args: any[]) => {
  * for each configured language.
  */
 export function activate(context: vscode.ExtensionContext) {
-  const config = vscode.workspace.getConfiguration('gohtmlLinker');
+  const config = vscode.workspace.getConfiguration('dnbHugoHelper');
   debug = config.get<boolean>('debug', false);
 
   // Create the output channel
